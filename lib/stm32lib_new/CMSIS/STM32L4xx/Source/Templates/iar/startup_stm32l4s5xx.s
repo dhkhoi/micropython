@@ -1,7 +1,7 @@
 ;********************************************************************************
-;* File Name          : startup_stm32l4r9xx.s
+;* File Name          : startup_stm32l4s5xx.s
 ;* Author             : MCD Application Team
-;* Description        : STM32L4R9xx Ultra Low Power Devices vector
+;* Description        : STM32L4S5xx Ultra Low Power Devices vector
 ;*                      This module performs:
 ;*                      - Set the initial SP
 ;*                      - Set the initial PC == _iar_program_start,
@@ -149,11 +149,11 @@ __vector_table
         DCD     SAI2_IRQHandler                   ; Serial Audio Interface 2 global interrupt
         DCD     OCTOSPI2_IRQHandler               ; OctoSPI2 global interrupt
         DCD     TSC_IRQHandler                    ; Touch Sense Controller global interrupt
-        DCD     DSI_IRQHandler                    ; DSI global interrupt
         DCD     0                                 ; Reserved
+        DCD     AES_IRQHandler                    ; AES global interrupt
         DCD     RNG_IRQHandler                    ; RNG global interrupt
         DCD     FPU_IRQHandler                    ; FPU
-        DCD     CRS_IRQHandler                    ; CRS interrupt
+        DCD     HASH_CRS_IRQHandler               ; HASH and CRS interrupt
         DCD     I2C4_ER_IRQHandler                ; I2C4 error
         DCD     I2C4_EV_IRQHandler                ; I2C4 event
         DCD     DCMI_IRQHandler                   ; DCMI global interrupt
@@ -610,10 +610,10 @@ OCTOSPI2_IRQHandler
 TSC_IRQHandler
        B TSC_IRQHandler
 
-       PUBWEAK DSI_IRQHandler
-       SECTION .text:CODE:NOROOT:REORDER(1)
-DSI_IRQHandler
-       B DSI_IRQHandler
+        PUBWEAK AES_IRQHandler
+        SECTION .text:CODE:NOROOT:REORDER(1)
+AES_IRQHandler
+        B AES_IRQHandler
 
         PUBWEAK RNG_IRQHandler
         SECTION .text:CODE:NOROOT:REORDER(1)
@@ -625,10 +625,10 @@ RNG_IRQHandler
 FPU_IRQHandler
         B FPU_IRQHandler
         
-        PUBWEAK CRS_IRQHandler
+        PUBWEAK HASH_CRS_IRQHandler
         SECTION .text:CODE:NOROOT:REORDER(1)
-CRS_IRQHandler
-        B CRS_IRQHandler
+HASH_CRS_IRQHandler
+        B HASH_CRS_IRQHandler
         
         PUBWEAK I2C4_ER_IRQHandler
         SECTION .text:CODE:NOROOT:REORDER(1)
