@@ -859,10 +859,10 @@ void dma_nohal_init(const dma_descr_t *descr, uint32_t config) {
         __HAL_DMA2_REMAP(descr->sub_instance);
     }
     #else
-    DMA_Request_TypeDef *dma_ctrl = (void*)(((uint32_t)dma & ~0xff) + (DMA1_CSELR_BASE - DMA1_BASE)); // DMA1_CSELR or DMA2_CSELR
+  /*  DMA_Request_TypeDef *dma_ctrl = (void*)(((uint32_t)dma & ~0xff) + (DMA1_CSELR_BASE - DMA1_BASE)); // DMA1_CSELR or DMA2_CSELR
     uint32_t channel_number = (((uint32_t)dma & 0xff) - 0x08) / 20; // 0 through 6
     uint32_t channel_pos = channel_number * 4;
-    dma_ctrl->CSELR = (dma_ctrl->CSELR & ~(0xf << channel_pos)) | (descr->sub_instance << channel_pos);
+    dma_ctrl->CSELR = (dma_ctrl->CSELR & ~(0xf << channel_pos)) | (descr->sub_instance << channel_pos);*/
     #endif
 }
 

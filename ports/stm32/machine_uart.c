@@ -77,7 +77,15 @@ typedef struct _pyb_uart_irq_map_t {
     uint16_t irq_en;
     uint16_t flag;
 } pyb_uart_irq_map_t;
-
+#if defined(STM32L4R9xx)
+STATIC const pyb_uart_irq_map_t mp_irq_map[] = {
+    { USART_CR1_IDLEIE, UART_FLAG_IDLE}, // RX idle
+    { USART_CR1_PEIE,   UART_FLAG_PE},   // parity error
+    { USART_CR1_TXEIE_TXFNFIE,  UART_FLAG_TXE},  // TX register empty
+    { USART_CR1_TCIE,   UART_FLAG_TC},   // TX complete
+    { USART_CR1_RXNEIE_RXFNEIE, UART_FLAG_RXNE}, // RX register not empty
+};
+#else
 STATIC const pyb_uart_irq_map_t mp_irq_map[] = {
     { USART_CR1_IDLEIE, UART_FLAG_IDLE}, // RX idle
     { USART_CR1_PEIE,   UART_FLAG_PE},   // parity error
@@ -94,7 +102,7 @@ STATIC const pyb_uart_irq_map_t mp_irq_map[] = {
     { USART_CR3_CTSIE,  UART_FLAG_CTS},  // CTS
     #endif
 };
-
+#endif
 // OR-ed IRQ flags which should not be touched by the user
 STATIC const uint32_t mp_irq_reserved = UART_FLAG_RXNE;
 
