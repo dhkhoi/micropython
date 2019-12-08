@@ -1,7 +1,7 @@
 ;*******************************************************************************
-;* File Name          : startup_stm32l4r9xx.s
+;* File Name          : startup_stm32l4s7xx.s
 ;* Author             : MCD Application Team
-;* Description        : STM32L4R9xx Ultra Low Power devices vector table for MDK-ARM toolchain.
+;* Description        : STM32L4S7xx Ultra Low Power devices vector table for MDK-ARM toolchain.
 ;*                      This module performs:
 ;*                      - Set the initial SP
 ;*                      - Set the initial PC == Reset_Handler
@@ -153,11 +153,11 @@ __Vectors       DCD     __initial_sp               ; Top of Stack
                 DCD     SAI2_IRQHandler                   ; Serial Audio Interface 2 global interrupt
                 DCD     OCTOSPI2_IRQHandler               ; OctoSPI2 global interrupt
                 DCD     TSC_IRQHandler                    ; Touch Sense Controller global interrupt
-                DCD     DSI_IRQHandler                    ; DSI global interrupt
                 DCD     0                                 ; Reserved
+                DCD     AES_IRQHandler                    ; AES global interrupt
                 DCD     RNG_IRQHandler                    ; RNG global interrupt
                 DCD     FPU_IRQHandler                    ; FPU
-                DCD     CRS_IRQHandler                    ; CRS global interrupt
+                DCD     HASH_CRS_IRQHandler               ; HASH and CRS global interrupt
                 DCD     I2C4_ER_IRQHandler                ; I2C4 error
                 DCD     I2C4_EV_IRQHandler                ; I2C4 event
                 DCD     DCMI_IRQHandler                   ; DCMI global interrupt
@@ -312,10 +312,10 @@ Default_Handler PROC
         EXPORT     SAI2_IRQHandler                   [WEAK]
         EXPORT     OCTOSPI2_IRQHandler               [WEAK]
         EXPORT     TSC_IRQHandler                    [WEAK]
-        EXPORT     DSI_IRQHandler                    [WEAK]
+        EXPORT     AES_IRQHandler                    [WEAK]
         EXPORT     RNG_IRQHandler                    [WEAK]
         EXPORT     FPU_IRQHandler                    [WEAK]
-        EXPORT     CRS_IRQHandler                    [WEAK]
+        EXPORT     HASH_CRS_IRQHandler               [WEAK]
         EXPORT     I2C4_ER_IRQHandler                [WEAK]
         EXPORT     I2C4_EV_IRQHandler                [WEAK]
         EXPORT     DCMI_IRQHandler                   [WEAK]
@@ -402,10 +402,10 @@ SAI1_IRQHandler
 SAI2_IRQHandler
 OCTOSPI2_IRQHandler
 TSC_IRQHandler
-DSI_IRQHandler
+AES_IRQHandler
 RNG_IRQHandler
 FPU_IRQHandler
-CRS_IRQHandler
+HASH_CRS_IRQHandler
 I2C4_ER_IRQHandler
 I2C4_EV_IRQHandler
 DCMI_IRQHandler
