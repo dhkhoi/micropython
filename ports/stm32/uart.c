@@ -42,16 +42,26 @@
 #define UART_RXNE_IS_SET(uart) ((uart)->SR & USART_SR_RXNE)
 #elif defined(STM32H7)
 #define UART_RXNE_IS_SET(uart) ((uart)->ISR & USART_ISR_RXNE_RXFNE)
+#elif defined(STM32L4R9xx)
+#define UART_RXNE_IS_SET(uart) ((uart)->ISR & USART_ISR_RXNE_RXFNE)
 #else
 #define UART_RXNE_IS_SET(uart) ((uart)->ISR & USART_ISR_RXNE)
 #endif
+#if defined(STM32L4R9xx)
+#define UART_RXNE_IT_EN(uart) do { (uart)->CR1 |= USART_CR1_RXNEIE_RXFNEIE; } while (0)
+#define UART_RXNE_IT_DIS(uart) do { (uart)->CR1 &= ~USART_CR1_RXNEIE_RXFNEIE; } while (0)
+
+#define USART_CR1_IE_BASE (USART_CR1_PEIE | USART_CR1_TXEIE_TXFNFIE | USART_CR1_TCIE | USART_CR1_RXNEIE_RXFNEIE | USART_CR1_IDLEIE)
+#define USART_CR2_IE_BASE (USART_CR2_LBDIE)
+#define USART_CR3_IE_BASE (USART_CR3_CTSIE | USART_CR3_EIE)
+#else
 #define UART_RXNE_IT_EN(uart) do { (uart)->CR1 |= USART_CR1_RXNEIE; } while (0)
 #define UART_RXNE_IT_DIS(uart) do { (uart)->CR1 &= ~USART_CR1_RXNEIE; } while (0)
 
 #define USART_CR1_IE_BASE (USART_CR1_PEIE | USART_CR1_TXEIE | USART_CR1_TCIE | USART_CR1_RXNEIE | USART_CR1_IDLEIE)
 #define USART_CR2_IE_BASE (USART_CR2_LBDIE)
 #define USART_CR3_IE_BASE (USART_CR3_CTSIE | USART_CR3_EIE)
-
+#endif
 #if defined(STM32F0)
 #define USART_CR1_IE_ALL (USART_CR1_IE_BASE | USART_CR1_EOBIE | USART_CR1_RTOIE | USART_CR1_CMIE)
 #define USART_CR2_IE_ALL (USART_CR2_IE_BASE)
@@ -247,10 +257,6 @@ bool uart_init(pyb_uart_obj_t *uart_obj,
             UARTx = USART4;
             irqn = USART3_8_IRQn;
             __HAL_RCC_USART4_CLK_ENABLE();
-            #elif defined(STM32L0)
-            UARTx = USART4;
-            irqn = USART4_5_IRQn;
-            __HAL_RCC_USART4_CLK_ENABLE();
             #else
             UARTx = UART4;
             irqn = UART4_IRQn;
@@ -277,10 +283,6 @@ bool uart_init(pyb_uart_obj_t *uart_obj,
             #if defined(STM32F0)
             UARTx = USART5;
             irqn = USART3_8_IRQn;
-            __HAL_RCC_USART5_CLK_ENABLE();
-            #elif defined(STM32L0)
-            UARTx = USART5;
-            irqn = USART4_5_IRQn;
             __HAL_RCC_USART5_CLK_ENABLE();
             #else
             UARTx = UART5;

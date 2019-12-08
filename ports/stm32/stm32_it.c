@@ -395,7 +395,7 @@ void OTG_FS_WKUP_IRQHandler(void) {
 
   OTG_CMD_WKUP_Handler(&pcd_fs_handle);
 
-  #if !defined(STM32H7)
+  #if !defined(STM32H7) && !defined(STM32L4R9xx)
   /* Clear EXTI pending Bit*/
   __HAL_USB_FS_EXTI_CLEAR_FLAG();
   #endif
@@ -729,15 +729,6 @@ void USART3_8_IRQHandler(void) {
     uart_irq_handler(7);
     uart_irq_handler(8);
     IRQ_EXIT(USART3_8_IRQn);
-}
-
-#elif defined(STM32L0)
-
-void USART4_5_IRQHandler(void) {
-    IRQ_ENTER(USART4_5_IRQn);
-    uart_irq_handler(4);
-    uart_irq_handler(5);
-    IRQ_EXIT(USART4_5_IRQn);
 }
 
 #else
