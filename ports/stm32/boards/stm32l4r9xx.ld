@@ -1,5 +1,6 @@
 /*
     GNU linker script for STM32L4R9I-DISC
+    
 */
 
 /* Specify the memory areas */
