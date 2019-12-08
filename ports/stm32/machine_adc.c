@@ -33,7 +33,7 @@
 #define ADC_V2 (0)
 #endif
 
-#if defined(STM32F4) || defined(STM32L4)
+#if defined(STM32F4) 
 #define ADCx_COMMON ADC_COMMON_REGISTER(0)
 #elif defined(STM32F7)
 #define ADCx_COMMON ADC123_COMMON
@@ -127,7 +127,7 @@ STATIC void adc_config(ADC_TypeDef *adc, uint32_t bits) {
     // Configure clock mode
     #if defined(STM32F0)
     adc->CFGR2 = 2 << ADC_CFGR2_CKMODE_Pos; // PCLK/4 (synchronous clock mode)
-    #elif defined(STM32F4) || defined(STM32F7) || defined(STM32L4)
+    #elif defined(STM32F4) || defined(STM32F7) 
     ADCx_COMMON->CCR = 0; // ADCPR=PCLK/2
     #elif defined(STM32H7)
     ADC12_COMMON->CCR = 3 << ADC_CCR_CKMODE_Pos;
@@ -280,13 +280,13 @@ STATIC void adc_config_channel(ADC_TypeDef *adc, uint32_t channel, uint32_t samp
     }
     *smpr = (*smpr & ~(7 << (channel * 3))) | sample_time << (channel * 3); // select sample time
 
-    #elif defined(STM32H7) || defined(STM32L4) || defined(STM32WB)
+    #elif defined(STM32H7) || defined(STM32WB)
 
     #if defined(STM32H7)
     adc->PCSEL |= 1 << channel;
     ADC_Common_TypeDef *adc_common = adc == ADC3 ? ADC3_COMMON : ADC12_COMMON;
-    #elif defined(STM32L4)
-    ADC_Common_TypeDef *adc_common = ADCx_COMMON;
+ /* #elif defined(STM32L4)
+    ADC_Common_TypeDef *adc_common = ADCx_COMMON;*/
     #elif defined(STM32WB)
     ADC_Common_TypeDef *adc_common = ADC1_COMMON;
     #endif
