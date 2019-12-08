@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file      startup_stm32l4r9xx.s
+  * @file      startup_stm32l4s5xx.s
   * @author    MCD Application Team
-  * @brief     STM32L4R9xx devices vector table GCC toolchain.
+  * @brief     STM32L4S5xx devices vector table GCC toolchain.
   *            This module performs:
   *                - Set the initial SP
   *                - Set the initial PC == Reset_Handler,
@@ -222,11 +222,11 @@ g_pfnVectors:
 	.word	SAI2_IRQHandler
 	.word	OCTOSPI2_IRQHandler
 	.word	TSC_IRQHandler
-	.word	DSI_IRQHandler
 	.word	0
+	.word	AES_IRQHandler
 	.word	RNG_IRQHandler
 	.word	FPU_IRQHandler
-	.word	CRS_IRQHandler
+	.word	HASH_CRS_IRQHandler
 	.word	I2C4_ER_IRQHandler
 	.word	I2C4_EV_IRQHandler
 	.word	DCMI_IRQHandler
@@ -507,17 +507,17 @@ g_pfnVectors:
 	.weak	TSC_IRQHandler
 	.thumb_set TSC_IRQHandler,Default_Handler
 	
-	.weak	DSI_IRQHandler
-	.thumb_set DSI_IRQHandler,Default_Handler
-
+	.weak	AES_IRQHandler
+	.thumb_set AES_IRQHandler,Default_Handler
+	
 	.weak	RNG_IRQHandler
 	.thumb_set RNG_IRQHandler,Default_Handler
 	
 	.weak	FPU_IRQHandler
 	.thumb_set FPU_IRQHandler,Default_Handler
 	
-	.weak	CRS_IRQHandler
-	.thumb_set CRS_IRQHandler,Default_Handler	
+	.weak	HASH_CRS_IRQHandler
+	.thumb_set HASH_CRS_IRQHandler,Default_Handler	
 	
 	.weak	I2C4_ER_IRQHandler
 	.thumb_set I2C4_ER_IRQHandler,Default_Handler

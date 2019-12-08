@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file      startup_stm32l4r9xx.s
+  * @file      startup_stm32l4r5xx.s
   * @author    MCD Application Team
-  * @brief     STM32L4R9xx devices vector table GCC toolchain.
+  * @brief     STM32L4R5xx devices vector table GCC toolchain.
   *            This module performs:
   *                - Set the initial SP
   *                - Set the initial PC == Reset_Handler,
@@ -222,7 +222,7 @@ g_pfnVectors:
 	.word	SAI2_IRQHandler
 	.word	OCTOSPI2_IRQHandler
 	.word	TSC_IRQHandler
-	.word	DSI_IRQHandler
+	.word	0
 	.word	0
 	.word	RNG_IRQHandler
 	.word	FPU_IRQHandler
@@ -507,9 +507,6 @@ g_pfnVectors:
 	.weak	TSC_IRQHandler
 	.thumb_set TSC_IRQHandler,Default_Handler
 	
-	.weak	DSI_IRQHandler
-	.thumb_set DSI_IRQHandler,Default_Handler
-
 	.weak	RNG_IRQHandler
 	.thumb_set RNG_IRQHandler,Default_Handler
 	
